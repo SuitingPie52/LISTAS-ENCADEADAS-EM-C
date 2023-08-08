@@ -55,6 +55,10 @@ void inserir (int parametroNumero) {
 	
 }
 
+/////////////////////////////////
+// Funcao que imprime a Lista //
+///////////////////////////////
+
 void imprimir () {
 	
 	struct no *ponteiro = cabeca;
@@ -66,6 +70,47 @@ void imprimir () {
 		
 	}
 	
+}
+
+/////////////////////////////////////////////
+// Funcao que remove um elemento da Lista //
+///////////////////////////////////////////
+
+void remover (int parametroNumero) {
+	
+	struct no *ponteiroAnterior;
+	struct no *ponteiroExcluir;
+	
+	if (cabeca != NULL) {
+			
+		if (cabeca -> numero == parametroNumero) {
+				
+			ponteiroExcluir = cabeca;
+			cabeca = cabeca -> proximo;
+				
+			free(ponteiroExcluir);
+				
+		} else {
+				
+			ponteiroAnterior = cabeca;
+				
+			while ((ponteiroAnterior -> proximo != NULL) && 
+					(ponteiroAnterior -> proximo -> numero != parametroNumero)) {
+									
+					ponteiroAnterior = ponteiroAnterior -> proximo;
+					
+			}
+				
+			if (ponteiroAnterior -> proximo != NULL) {
+					
+				ponteiroExcluir = ponteiroAnterior -> proximo;
+				ponteiroAnterior -> proximo = ponteiroExcluir -> proximo;
+					
+				free(ponteiroExcluir);
+				
+			}
+		}	
+	}
 }
 
 int main () {
@@ -84,6 +129,12 @@ int main () {
 	
 	imprimir();
 	
-	return 0;
+	printf("\n/////////////////////////////////////////////////\n");
+	
+	remover(4);
+	remover(11);
+	remover(11);
+	
+	imprimir();
 	
 }
