@@ -6,9 +6,9 @@
 #include <stdlib.h>
 
 /////////////////////////////////////////////////////////////////////
-// em ponteiros você guarda no endereço outro endereço de memória //
+// em ponteiros vocÃª guarda no endereÃ§o outro endereÃ§o de memÃ³ria //
 // *p ---> declara ponteiro                                      //
-// & ---> endereça a variável                                   //
+// & ---> endereÃ§a a variÃ¡vel                                   //
 /////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////
@@ -109,17 +109,16 @@ void remover (int parametroNumero) {
 		
 					ponteiroAnterior = cabeca;
 		
-					if (ponteiroAnterior -> proximo == NULL) {
+					if (ponteiroAnterior -> proximo == ponteiroExcluir) {
 			
 						ponteiroAnterior -> proximo = cabeca;
 						free(ponteiroExcluir);
 						return;
 			
 					}
-				
-					ponteiroAnterior -> proximo = ponteiroAnterior; // algum erro
-				
-				}
+											 ////////////////
+					ponteiroAnterior = ponteiroAnterior -> proximo; // algum erro //
+										       ////////////////				}
 				
 				
 			
