@@ -6,9 +6,9 @@
 #include <stdlib.h>
 
 /////////////////////////////////////////////////////////////////////
-// em ponteiros vocÃª guarda no endereÃ§o outro endereÃ§o de memÃ³ria //
+// em ponteiros você guarda no endereço outro endereço de memória //
 // *p ---> declara ponteiro                                      //
-// & ---> endereÃ§a a variÃ¡vel                                   //
+// & ---> endereça a variável                                   //
 /////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////
@@ -83,73 +83,66 @@ void imprimir () {
 // Funcao que remove um elemento da Lista //
 ///////////////////////////////////////////
 
-void remover (int parametroNumero) {
+void remover(int parametroNumero){
+	struct no *ponteiroFinal = cabeca;
+	struct no *ponteiroExcluir = cabeca;
+	struct no *ponteiroPenultimo = NULL;
 	
-	struct no *ponteiroAnterior;
-	struct no *ponteiroExcluir;
+	while (ponteiroFinal -> proximo != cabeca){
 	
-	ponteiroAnterior = cabeca;
+		if (ponteiroFinal -> proximo -> numero == parametroNumero){
+		
+			ponteiroExcluir = ponteiroFinal -> proximo;
 	
-	if (cabeca != NULL) {
+		}
+	
+		if (ponteiroFinal -> proximo -> proximo == cabeca){
 		
-		while(true) {
-			
-			if (cabeca -> proximo == cabeca 
-				&& cabeca -> numero == parametroNumero) {
-			
-				cabeca = NULL;
-				return;
-						
-			} else if (cabeca -> numero == parametroNumero) {
-		
-				ponteiroExcluir = cabeca;
-				cabeca = cabeca -> proximo;
-				
-				while (true) {
-		
-					ponteiroAnterior = cabeca;
-		
-					if (ponteiroAnterior -> proximo == ponteiroExcluir) {
-			
-						ponteiroAnterior -> proximo = cabeca;
-						free(ponteiroExcluir);
-						return;
-			
-					}
-											 ////////////////
-					ponteiroAnterior = ponteiroAnterior -> proximo; // algum erro //
-										       ////////////////				}
-				
-				
-			
-			} else if (ponteiroAnterior -> proximo -> proximo == cabeca
-						&& ponteiroAnterior -> proximo -> numero == parametroNumero) {
-				
-				ponteiroExcluir = ponteiroAnterior -> proximo;
-				ponteiroAnterior -> proximo = cabeca;
-				
-				free(ponteiroExcluir);
-				return;
-				
-			} else if (ponteiroAnterior -> proximo -> numero == parametroNumero) {
-				
-				ponteiroExcluir = ponteiroAnterior -> proximo;
-				ponteiroAnterior -> proximo = ponteiroAnterior -> proximo -> proximo;
-				
-				free(ponteiroExcluir);
-				return;
-				
-			}
-		
-			ponteiroAnterior = ponteiroAnterior -> proximo;
-		
-				if (ponteiroAnterior -> proximo == cabeca) {
-				
-					break;
-				
-			}			
-		}	
+			ponteiroPenultimo = ponteiroFinal;
+	
+		}
+	
+		ponteiroFinal = ponteiroFinal -> proximo;
+
 	}
+
+	if ((ponteiroExcluir == cabeca) && (ponteiroExcluir -> proximo == cabeca)) {
+		
+		cabeca = NULL;
+		free(ponteiroExcluir);
+	
+		
+	} else if (ponteiroExcluir == cabeca){
+	
+		ponteiroFinal -> proximo = cabeca -> proximo;
+		cabeca = cabeca -> proximo;
+		free(ponteiroExcluir);
+
+	} else if (ponteiroExcluir == ponteiroFinal) {
+	 
+		ponteiroPenultimo -> proximo = cabeca;
+		ponteiroFinal = NULL;
+		free(ponteiroExcluir);
+
+	} else {
+		
+		ponteiroFinal = cabeca;
+		
+		while ((ponteiroFinal -> proximo != cabeca) && (ponteiroFinal -> proximo -> numero != parametroNumero)) {
+	
+			ponteiroFinal = ponteiroFinal -> proximo;
+	
+		}
+		
+		if (ponteiroFinal -> proximo != cabeca) {
+		
+			ponteiroExcluir = ponteiroFinal -> proximo;
+			ponteiroFinal -> proximo = ponteiroExcluir -> proximo;
+			free(ponteiroExcluir);
+	
+		}
+	}
+	
 }
 
 int main () {
@@ -165,3 +158,4 @@ int main () {
 	imprimir();
 	
 }
+
